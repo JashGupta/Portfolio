@@ -98,7 +98,7 @@ export function Skills() {
               How I build software.
             </h2>
             <p className="mt-6 max-w-xl text-[15px] leading-[1.75] text-muted-foreground md:text-[17px]">
-              Tools change every year. These don't. They're the principles I
+              Tools change every year. These don&apos;t. They&apos;re the principles I
               default to before I write a single line of code.
             </p>
           </motion.div>
