@@ -91,7 +91,7 @@ export function Hero() {
                 ease: EASE.out,
                 delay: 0.1,
               }}
-              className="text-[clamp(3rem,6vw,5.5rem)] font-medium leading-[0.95] tracking-[-0.05em] text-foreground"
+              className="text-[clamp(3.5rem,6vw,5.5rem)] font-medium leading-[0.95] tracking-[-0.05em] text-foreground"
             >
               <span className="block">Turning ideas</span>
               <span className="block text-gradient">into real Software.</span>
@@ -105,11 +105,9 @@ export function Hero() {
                 ease: EASE.out,
                 delay: 0.2,
               }}
-              className="mt-8 max-w-xl text-[14px] text-muted-foreground md:text-[18px]"
+              className="mt-8 max-w-xl text-[12px] text-muted-foreground md:text-[18px]"
             >
-              I&apos;m {siteConfig.name}, a software developer based in India
-              who enjoys turning ideas into reliable software through clean
-              engineering, scalable systems, and thoughtful user experiences.
+              I&apos;m {siteConfig.name}, a software developer based in India with hands-on experience building full-stack web applications. I enjoy solving real-world problems through clean code, scalable systems, and intuitive user experiences.
             </motion.p>
 
             <motion.div

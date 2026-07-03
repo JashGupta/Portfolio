@@ -15,39 +15,39 @@ type Principle = {
 const PRINCIPLES: Principle[] = [
   {
     index: "01",
-    title: "Performance First",
+    title: "Problem Solving",
     description:
-      "Fast software feels better to use. I focus on efficient rendering, smooth interactions, and optimizing where it has real impact.",
+      "Every project starts with understanding the problem before choosing the technology. I focus on building practical, reliable solutions that solve real-world needs.",
   },
   {
     index: "02",
-    title: "Clean Architecture",
+    title: "Clean Code",
     description:
-      "Readable code scales better than clever code. I build reusable components and keep projects organized for long-term maintainability.",
+      "Readable, modular code is easier to maintain and extend. I value simplicity, consistency, and writing software that's built for the long term.",
   },
   {
     index: "03",
-    title: "Accessibility",
+    title: "Scalable Systems",
     description:
-      "Great products should work for everyone. Semantic HTML, keyboard navigation, and reduced-motion support are part of every interface I build.",
+      "I design applications with reusable architecture, well-structured APIs, and clear separation of concerns so they can grow without unnecessary complexity.",
   },
   {
     index: "04",
-    title: "Developer Experience",
+    title: "Performance",
     description:
-      "Good tooling makes better software. I value strong typing, reusable patterns, and workflows that make development faster and more reliable.",
+      "Performance matters at every layer. I optimize where it makes a meaningful impact, delivering applications that are fast, responsive, and efficient.",
   },
   {
     index: "05",
-    title: "Scalability",
+    title: "Developer Experience",
     description:
-      "I design systems that can grow over time, keeping solutions simple today while leaving room for future expansion.",
+      "Strong typing, consistent project structure, and reliable tooling help reduce bugs, improve collaboration, and make development more efficient.",
   },
   {
     index: "06",
-    title: "Attention to Detail",
+    title: "User Experience",
     description:
-      "Small details shape the overall experience. From spacing and animations to responsiveness and polish, I care about the finishing touches.",
+      "Good software should feel intuitive and dependable. I build responsive, accessible interfaces that make complex functionality simple to use.",
   },
 ];
 
@@ -98,8 +98,7 @@ export function Skills() {
               How I build software.
             </h2>
             <p className="mt-6 max-w-xl text-[15px] leading-[1.75] text-muted-foreground md:text-[17px]">
-              Tools change every year. These don&apos;t. They&apos;re the principles I
-              default to before I write a single line of code.
+              Technologies evolve, but good engineering principles remain the same. These ideas shape how I approach every project—from planning the architecture to shipping the final product.
             </p>
           </motion.div>
 

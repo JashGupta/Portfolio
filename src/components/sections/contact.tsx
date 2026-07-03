@@ -75,7 +75,7 @@ blur-3xl
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
               </span>
               <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
-                Open to internships &amp; freelance work
+                Open to Software Engineering Opportunities
               </p>
             </motion.div>
 
@@ -93,9 +93,7 @@ blur-3xl
               {...(reducedMotion ? {} : fadeUp(0.16))}
               className="mt-8 max-w-lg text-[15px] leading-[1.75] text-muted-foreground md:text-[17px]"
             >
-              If you have an idea, a problem, or just a hunch worth exploring —
-              I&apos;d like to hear it. The best products start as a single
-              honest conversation.
+              I&apos;m always interested in discussing software engineering, full-stack development, new opportunities, or interesting ideas. If you think we&apos;d be a good fit, let&apos;s connect.
             </motion.p>
 
             {/* Primary + secondary CTAs */}
@@ -156,7 +154,7 @@ blur-3xl
               {...(reducedMotion ? {} : fadeUp(0.4))}
               className="mt-3 font-mono text-xs text-muted"
             >
-              - usually replies within 24 hours.
+              - Always learning. Always building.
             </motion.p>
           </motion.div>
 

@@ -66,10 +66,10 @@ export function About() {
         "Grew confident building full-stack MERN applications — shipping projects like ExplorX, AstroCRM, AI Virtual Assistant, and an Uber Clone.",
     },
     {
-      phase: "Crafting Better Products",
+      phase: "Building Better Software",
       period: "Present",
       description:
-        "Focused on Next.js, TypeScript, Framer Motion, performance, and accessibility — refining the craft behind every product I build.",
+        "Focused on building scalable applications with Next.js, TypeScript, performance optimization, and writing cleaner, more maintainable code.",
     },
   ];
 
@@ -103,14 +103,11 @@ export function About() {
             {/* heading */}
 
             <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-medium tracking-tight text-foreground">
-              <span className="block italic">I build products.</span>
+              <span className="block italic">I build software.</span>
               <span className="block italic">Then I refine every detail.</span>
             </h2>
             <p className="mt-6 text-[15px] leading-[1.75] text-muted-foreground md:text-[17px]">
-              I enjoy turning ideas into full-stack web applications that are
-              fast, intuitive, and maintainable. From backend architecture to
-              polished frontend interactions — I care about the whole product,
-              not just the parts that are easy to notice.
+              I&apos;m a Computer Science student who enjoys building software from the ground up—from designing backend APIs and databases to building responsive user interfaces. I believe good software isn&apos;t just about shipping features; it&apos;s about writing maintainable code, making thoughtful technical decisions, and delivering a reliable experience.
             </p>
           </motion.div>
 

@@ -1,9 +1,10 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "framer-motion";
 import { DURATION, EASE } from "@/lib/motion";
+import { useMobileMenu } from "../providers/app-provider";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -26,153 +27,347 @@ type TabId = "about" | "skills" | "projects";
 // ─── Token colours (Material Theme Darker palette) ────────────────────────────
 
 const TOKEN_COLORS: Record<TokenType, string> = {
-  keyword:   "text-[#c792ea]",
-  string:    "text-[#c3e88d]",
-  type:      "text-[#ffcb6b]",
-  function:  "text-[#82aaff]",
-  property:  "text-[#f07178]",
-  tag:       "text-[#89ddff]",
+  keyword: "text-[#c792ea]",
+  string: "text-[#c3e88d]",
+  type: "text-[#ffcb6b]",
+  function: "text-[#82aaff]",
+  property: "text-[#f07178]",
+  tag: "text-[#89ddff]",
   attribute: "text-[#ffcb6b]",
-  comment:   "text-[#546e7a] italic",
-  number:    "text-[#f78c6c]",
-  plain:     "text-[#8b949e]",
+  comment: "text-[#546e7a] italic",
+  number: "text-[#f78c6c]",
+  plain: "text-[#8b949e]",
 };
 
 // ─── Tab definitions ──────────────────────────────────────────────────────────
 
 const TABS: { id: TabId; label: string }[] = [
-  { id: "about",    label: "about.ts"    },
-  { id: "skills",   label: "skills.ts"   },
+  { id: "about", label: "about.ts" },
+  { id: "skills", label: "skills.ts" },
   { id: "projects", label: "projects.ts" },
 ];
 
 // ─── Code content ─────────────────────────────────────────────────────────────
 
 const LINES: Record<TabId, CodeLineData[]> = {
-
   // ── about.ts ──────────────────────────────────────────────────────────────
   about: [
-  { indent: 0, tokens: [{ type: "keyword", text: "const" }, { type: "plain", text: " about = {" }] },
+    {
+      indent: 0,
+      tokens: [
+        { type: "keyword", text: "const" },
+        { type: "plain", text: " about = {" },
+      ],
+    },
 
-  { indent: 1, tokens: [{ type: "property", text: "name" }, { type: "plain", text: ": " }, { type: "string", text: '"Jashan Gupta"' }, { type: "plain", text: "," }] },
+    {
+      indent: 1,
+      tokens: [
+        { type: "property", text: "name" },
+        { type: "plain", text: ": " },
+        { type: "string", text: '"Jashan Gupta"' },
+        { type: "plain", text: "," },
+      ],
+    },
 
-  { indent: 1, tokens: [{ type: "property", text: "role" }, { type: "plain", text: ": " }, { type: "string", text: '"Full Stack Developer"' }, { type: "plain", text: "," }] },
+    {
+      indent: 1,
+      tokens: [
+        { type: "property", text: "role" },
+        { type: "plain", text: ": " },
+        { type: "string", text: '"Software Developer"' },
+        { type: "plain", text: "," },
+      ],
+    },
 
-  { indent: 1, tokens: [{ type: "property", text: "location" }, { type: "plain", text: ": " }, { type: "string", text: '"Haryana, India"' }, { type: "plain", text: "," }] },
+    {
+      indent: 1,
+      tokens: [
+        { type: "property", text: "location" },
+        { type: "plain", text: ": " },
+        { type: "string", text: '"Haryana, India"' },
+        { type: "plain", text: "," },
+      ],
+    },
 
-  { indent: 1, tokens: [{ type: "property", text: "techStack" }, { type: "plain", text: ": [" }] },
+    {
+      indent: 1,
+      tokens: [
+        { type: "property", text: "techStack" },
+        { type: "plain", text: ": [" },
+      ],
+    },
 
-  { indent: 2, tokens: [
-    { type: "string", text: '"React"' },
-    { type: "plain", text: ", " },
-    { type: "string", text: '"Next.js"' },
-    { type: "plain", text: ", " },
-    { type: "string", text: '"TypeScript"' },
-    { type: "plain", text: "," }
-  ]},
+    {
+      indent: 2,
+      tokens: [
+        { type: "string", text: '"React"' },
+        { type: "plain", text: ", " },
+        { type: "string", text: '"Next.js"' },
+        { type: "plain", text: ", " },
+        { type: "string", text: '"TypeScript"' },
+        { type: "plain", text: "," },
+      ],
+    },
 
-  { indent: 2, tokens: [
-    { type: "string", text: '"Node.js"' },
-    { type: "plain", text: ", " },
-    { type: "string", text: '"Express"' },
-    { type: "plain", text: ", " },
-    { type: "string", text: '"MongoDB"' },
-    { type: "plain", text: "," }
-  ]},
+    {
+      indent: 2,
+      tokens: [
+        { type: "string", text: '"Node.js"' },
+        { type: "plain", text: ", " },
+        { type: "string", text: '"Express"' },
+        { type: "plain", text: ", " },
+        { type: "string", text: '"MongoDB"' },
+        { type: "plain", text: "," },
+      ],
+    },
 
-  { indent: 1, tokens: [{ type: "plain", text: "]," }] },
+    { indent: 1, tokens: [{ type: "plain", text: "]," }] },
 
-{
-  indent: 1,
-  tokens: [
-    { type: "property", text: "currently" },
-    { type: "plain", text: ": " },
-    { type: "string", text: '"Building full-stack applications while crafting polished and user-focused interfaces."' },
-    { type: "plain", text: "," }
-  ]
-},
+    {
+      indent: 1,
+      tokens: [
+        { type: "property", text: "currently" },
+        { type: "plain", text: ": " },
+        {
+          type: "string",
+          text: '"Building full-stack applications while crafting polished and user-focused interfaces."',
+        },
+        { type: "plain", text: "," },
+      ],
+    },
 
-  { indent: 0, tokens: [{ type: "plain", text: "};" }] },
+    { indent: 0, tokens: [{ type: "plain", text: "};" }] },
 
-  { indent: 0, tokens: [] },
+    { indent: 0, tokens: [] },
 
-  { indent: 0, tokens: [{ type: "comment", text: "// Open to Full Stack & Frontend opportunities." }] },
-],
+    {
+      indent: 0,
+      tokens: [
+        {
+          type: "comment",
+          text: "// Open to Full Stack & Backend opportunities.",
+        },
+      ],
+    },
+  ],
 
-skills: [
-  { indent: 0, tokens: [{ type: "keyword", text: "const" }, { type: "plain", text: " skills = {" }] },
+  // skills.ts
 
-  { indent: 1, tokens: [{ type: "property", text: "languages" }, { type: "plain", text: ": [" }] },
-  { indent: 2, tokens: [
-    { type: "string", text: '"JavaScript"' },
-    { type: "plain", text: ", " },
-    { type: "string", text: '"TypeScript"' },
-    { type: "plain", text: ", " },
-    { type: "string", text: '"Java"' },
-    { type: "plain", text: ", " },
-    { type: "string", text: '"C++"' }
-  ]},
-  { indent: 1, tokens: [{ type: "plain", text: "]," }] },
+  skills: [
+    {
+      indent: 0,
+      tokens: [
+        { type: "keyword", text: "const" },
+        { type: "plain", text: " skills = {" },
+      ],
+    },
 
-  { indent: 1, tokens: [{ type: "property", text: "frontend" }, { type: "plain", text: ": [" }] },
-  { indent: 2, tokens: [
-    { type: "string", text: '"React"' },
-    { type: "plain", text: ", " },
-    { type: "string", text: '"Next.js"' },
-    { type: "plain", text: ", " },
-    { type: "string", text: '"Tailwind CSS"' }
-  ]},
-  { indent: 1, tokens: [{ type: "plain", text: "]," }] },
+    // Languages
+    {
+      indent: 1,
+      tokens: [
+        { type: "property", text: "languages" },
+        { type: "plain", text: ": [" },
+      ],
+    },
+    {
+      indent: 2,
+      tokens: [
+        { type: "string", text: '"Java"' },
+        { type: "plain", text: ", " },
+        { type: "string", text: '"JavaScript"' },
+        { type: "plain", text: ", " },
+        { type: "string", text: '"TypeScript"' },
+        { type: "plain", text: ", " },
+        { type: "string", text: '"C++"' },
+      ],
+    },
+    { indent: 1, tokens: [{ type: "plain", text: "]," }] },
 
-  { indent: 1, tokens: [{ type: "property", text: "backend" }, { type: "plain", text: ": [" }] },
-  { indent: 2, tokens: [
-    { type: "string", text: '"Node.js"' },
-    { type: "plain", text: ", " },
-    { type: "string", text: '"Express.js"' },
-    { type: "plain", text: ", " },
-    { type: "string", text: '"MongoDB"' }
-  ]},
-  { indent: 1, tokens: [{ type: "plain", text: "]," }] },
+    // Frontend
+    {
+      indent: 1,
+      tokens: [
+        { type: "property", text: "frontend" },
+        { type: "plain", text: ": [" },
+      ],
+    },
+    {
+      indent: 2,
+      tokens: [
+        { type: "string", text: '"React"' },
+        { type: "plain", text: ", " },
+        { type: "string", text: '"Next.js"' },
+        { type: "plain", text: ", " },
+        { type: "string", text: '"Tailwind CSS"' },
+        { type: "plain", text: ", " },
+        { type: "string", text: '"Framer Motion"' },
+      ],
+    },
+    { indent: 1, tokens: [{ type: "plain", text: "]," }] },
 
-  { indent: 1, tokens: [{ type: "property", text: "tools" }, { type: "plain", text: ": [" }] },
-  { indent: 2, tokens: [
-    { type: "string", text: '"Git"' },
-    { type: "plain", text: ", " },
-    { type: "string", text: '"GitHub"' },
-    { type: "plain", text: ", " },
-    { type: "string", text: '"Postman"' }
-  ]},
-  { indent: 1, tokens: [{ type: "plain", text: "]," }] },
+    // Backend
+    {
+      indent: 1,
+      tokens: [
+        { type: "property", text: "backend" },
+        { type: "plain", text: ": [" },
+      ],
+    },
+    {
+      indent: 2,
+      tokens: [
+        { type: "string", text: '"Node.js"' },
+        { type: "plain", text: ", " },
+        { type: "string", text: '"Express.js"' },
+        { type: "plain", text: ", " },
+        { type: "string", text: '"REST APIs"' },
+        { type: "plain", text: ", " },
+        { type: "string", text: '"JWT"' },
+      ],
+    },
+    { indent: 1, tokens: [{ type: "plain", text: "]," }] },
 
-  { indent: 0, tokens: [{ type: "plain", text: "};" }] },
-  { indent: 0, tokens: [{ type: "keyword", text: "export default" }, { type: "plain", text: " skills;" }] },
-],
+    // Database
+    {
+      indent: 1,
+      tokens: [
+        { type: "property", text: "database" },
+        { type: "plain", text: ": [" },
+      ],
+    },
+    {
+      indent: 2,
+      tokens: [
+        { type: "string", text: '"MongoDB"' },
+        { type: "plain", text: ", " },
+        { type: "string", text: '"Mongoose"' },
+      ],
+    },
+    { indent: 1, tokens: [{ type: "plain", text: "]," }] },
 
-// ── projects.ts ─────────────────────────────────────────────
-projects: [
-  { indent: 0, tokens: [{ type: "keyword", text: "const" }, { type: "plain", text: " projects = [" }] },
+    // Tools
+    {
+      indent: 1,
+      tokens: [
+        { type: "property", text: "tools" },
+        { type: "plain", text: ": [" },
+      ],
+    },
+    {
+      indent: 2,
+      tokens: [
+        { type: "string", text: '"Git"' },
+        { type: "plain", text: ", " },
+        { type: "string", text: '"GitHub"' },
+        { type: "plain", text: ", " },
+        { type: "string", text: '"Postman"' },
+        { type: "plain", text: ", " },
+        { type: "string", text: '"Vercel"' },
+      ],
+    },
+    { indent: 1, tokens: [{ type: "plain", text: "]," }] },
 
-  { indent: 1, tokens: [{ type: "plain", text: "{" }] },
-  { indent: 2, tokens: [{ type: "property", text: "title" }, { type: "plain", text: ": " }, { type: "string", text: '"ExplorX"' }, { type: "plain", text: "," }] },
-  { indent: 2, tokens: [{ type: "property", text: "summary" }, { type: "plain", text: ": " }, { type: "string", text: '"Premium booking experience focused on motion design"' }, { type: "plain", text: "," }] },
-  { indent: 2, tokens: [{ type: "property", text: "stack" }, { type: "plain", text: ": " }, { type: "string", text: '"React • TypeScript • Tailwind"' }] },
-  { indent: 1, tokens: [{ type: "plain", text: "}," }] },
+    { indent: 0, tokens: [{ type: "plain", text: "};" }] },
+    {
+      indent: 0,
+      tokens: [
+        { type: "keyword", text: "export default" },
+        { type: "plain", text: " skills;" },
+      ],
+    },
+  ],
 
-  { indent: 1, tokens: [{ type: "plain", text: "{" }] },
-  { indent: 2, tokens: [{ type: "property", text: "title" }, { type: "plain", text: ": " }, { type: "string", text: '"AstroCRM"' }, { type: "plain", text: "," }] },
-  { indent: 2, tokens: [{ type: "property", text: "summary" }, { type: "plain", text: ": " }, { type: "string", text: '"CRM for astrologers with dashboards & client management"' }, { type: "plain", text: "," }] },
-  { indent: 2, tokens: [{ type: "property", text: "stack" }, { type: "plain", text: ": " }, { type: "string", text: '"React • Node.js • MongoDB"' }] },
-  { indent: 1, tokens: [{ type: "plain", text: "}," }] },
+  // ── projects.ts ─────────────────────────────────────────────
+  projects: [
+    {
+      indent: 0,
+      tokens: [
+        { type: "keyword", text: "const" },
+        { type: "plain", text: " projects = [" },
+      ],
+    },
 
-  { indent: 0, tokens: [{ type: "plain", text: "];" }] },
-  { indent: 0, tokens: [{ type: "keyword", text: "export default" }, { type: "plain", text: " projects;" }] },
-],
+    { indent: 1, tokens: [{ type: "plain", text: "{" }] },
+    {
+      indent: 2,
+      tokens: [
+        { type: "property", text: "title" },
+        { type: "plain", text: ": " },
+        { type: "string", text: '"ExplorX"' },
+        { type: "plain", text: "," },
+      ],
+    },
+    {
+      indent: 2,
+      tokens: [
+        { type: "property", text: "summary" },
+        { type: "plain", text: ": " },
+        {
+          type: "string",
+          text: '"Premium booking experience focused on motion design"',
+        },
+        { type: "plain", text: "," },
+      ],
+    },
+    {
+      indent: 2,
+      tokens: [
+        { type: "property", text: "stack" },
+        { type: "plain", text: ": " },
+        { type: "string", text: '"React • TypeScript • Tailwind"' },
+      ],
+    },
+    { indent: 1, tokens: [{ type: "plain", text: "}," }] },
+
+    { indent: 1, tokens: [{ type: "plain", text: "{" }] },
+    {
+      indent: 2,
+      tokens: [
+        { type: "property", text: "title" },
+        { type: "plain", text: ": " },
+        { type: "string", text: '"AstroCRM"' },
+        { type: "plain", text: "," },
+      ],
+    },
+    {
+      indent: 2,
+      tokens: [
+        { type: "property", text: "summary" },
+        { type: "plain", text: ": " },
+        {
+          type: "string",
+          text: '"CRM for astrologers with dashboards & client management"',
+        },
+        { type: "plain", text: "," },
+      ],
+    },
+    {
+      indent: 2,
+      tokens: [
+        { type: "property", text: "stack" },
+        { type: "plain", text: ": " },
+        { type: "string", text: '"React • Node.js • MongoDB"' },
+      ],
+    },
+    { indent: 1, tokens: [{ type: "plain", text: "}," }] },
+
+    { indent: 0, tokens: [{ type: "plain", text: "];" }] },
+    {
+      indent: 0,
+      tokens: [
+        { type: "keyword", text: "export default" },
+        { type: "plain", text: " projects;" },
+      ],
+    },
+  ],
 };
 
 // Lines to highlight per tab
 const ACTIVE_LINES: Record<TabId, number[]> = {
-  about:    [2, 3, 5, 11, 13],
-  skills:   [3, 9, 14, 16, 17],
+  about: [2, 3, 5, 11, 13],
+  skills: [3, 9, 14, 16, 17],
   projects: [4, 7, 11, 14, 18],
 };
 
@@ -213,7 +408,11 @@ function CodeLine({
           <motion.span
             aria-hidden
             animate={{ opacity: [1, 1, 0, 0] }}
-            transition={{ duration: 1.1, repeat: Infinity, times: [0, 0.49, 0.5, 1] }}
+            transition={{
+              duration: 1.1,
+              repeat: Infinity,
+              times: [0, 0.49, 0.5, 1],
+            }}
             className="ml-px inline-block h-[1.05rem] w-px translate-y-px bg-[#82aaff]"
           />
         )}
@@ -226,8 +425,10 @@ function CodeLine({
 
 export function CodeEditor() {
   const reducedMotion = useReducedMotion();
+  const { isMobile } = useMobileMenu();
   const [activeTab, setActiveTab] = useState<TabId>("about");
   const [activeLine, setActiveLine] = useState(ACTIVE_LINES.about[0]);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   // Reset active line & restart cycle when tab changes
   useEffect(() => {
@@ -241,14 +442,39 @@ export function CodeEditor() {
     return () => clearInterval(interval);
   }, [activeTab, reducedMotion]);
 
+  useEffect(() => {
+  if (reducedMotion || isMobile) return;
+
+  const container = scrollRef.current;
+  if (!container) return;
+
+  let direction = 1;
+
+  const interval = setInterval(() => {
+    container.scrollTop += direction;
+
+    if (
+      container.scrollTop + container.clientHeight >=
+      container.scrollHeight
+    ) {
+      direction = -1;
+    }
+
+    if (container.scrollTop <= 0) {
+      direction = 1;
+    }
+  }, 30);
+
+  return () => clearInterval(interval);
+}, [activeTab, reducedMotion, isMobile]);
+
   const lines = LINES[activeTab];
 
   return (
     <motion.div
-
       initial={reducedMotion ? false : { opacity: 0, y: 20 }}
-                    animate={reducedMotion ? false : { opacity: 1, y: 0 }}
-                    transition={{ duration: DURATION.section, ease: EASE.out }}
+      animate={reducedMotion ? false : { opacity: 1, y: 0 }}
+      transition={{ duration: DURATION.section, ease: EASE.out }}
       className="overflow-hidden rounded-xl border border-white/[0.06] bg-[#0d0d0f] shadow-[0_0_0_1px_rgba(250,250,250,0.04),0_32px_64px_-16px_rgba(0,0,0,0.7)]"
     >
       {/* ── Title bar ── */}
@@ -296,18 +522,20 @@ export function CodeEditor() {
       </div>
 
       {/* ── Code viewport ── */}
-      <div className="relative h-[300px] overflow-y-auto sm:h-[400px] sm:overflow-hidden">
+      <div
+        ref={scrollRef}
+        className="relative h-[300px] overflow-y-auto sm:h-[400px]"
+      >
         <AnimatePresence mode="wait">
-          <motion.div
-            key={activeTab}
-            initial={reducedMotion ? undefined : { opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={reducedMotion ? undefined : { opacity: 0, y: -6 }}
-            transition={{ duration: 0.22, ease: [0.25, 0, 0, 1] }}
-            className="h-full"
-          >
+          <div className="py-3">
             <motion.div
-              animate={reducedMotion ? undefined : { y: [0, -(lines.length > 18 ? 56 : 0), 0] }}
+              animate={
+                reducedMotion || isMobile
+                  ? undefined
+                  : {
+                      y: [0, -(lines.length > 18 ? 56 : 0), 0],
+                    }
+              }
               transition={{ duration: 20, repeat: Infinity, ease: EASE.inOut }}
               className="py-3"
             >
@@ -325,7 +553,7 @@ export function CodeEditor() {
                 );
               })}
             </motion.div>
-          </motion.div>
+          </div>
         </AnimatePresence>
       </div>
 
