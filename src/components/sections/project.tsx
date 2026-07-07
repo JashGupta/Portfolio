@@ -181,7 +181,7 @@ export function Project({
                   ? undefined
                   : { opacity: descriptionOpacity, y: descriptionY }
               }
-              className="mt-6 max-w-lg text-[15px] leading-[1.75] text-muted-foreground md:text-base"
+              className="mt-4 max-w-lg text-[15px] leading-[1.75] text-muted-foreground md:text-base"
             >
               {project.description}
             </motion.p>
@@ -198,7 +198,7 @@ export function Project({
                 Architecture
               </p>
               <ul className="mt-3 space-y-2.5">
-                {project.architecture.map((item) => (
+                {project.engineering.map((item) => (
                   <li
                     key={item}
                     className="flex items-start gap-2.5 text-sm text-muted-foreground"

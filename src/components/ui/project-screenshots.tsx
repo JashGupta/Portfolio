@@ -12,7 +12,7 @@ export function ProjectScreenshot({
       alt={project.title}
       fill
       priority
-      className="object-cover object-center"
+      className="object-contain"
       sizes="(max-width:768px) 100vw, 50vw"
     />
   );

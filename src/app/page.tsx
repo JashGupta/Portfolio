@@ -22,7 +22,7 @@ export default function Home() {
 
       <Skills />
 
-      <Project project={projectThree} index={3} />
+
 
       <Contact />
     </>

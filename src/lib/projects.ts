@@ -8,7 +8,7 @@ export type FeaturedProject = {
   description: string;
   status: ProjectStatus;
   stack: string[];
-  architecture: string[];
+  engineering: string[];
   github: string;
   live: string;
   domain: string;
@@ -19,79 +19,73 @@ export const featuredProjects: FeaturedProject[] = [
     id: "explorx",
     title: "ExplorX",
     screenshot: "/explorX.png",
-    tagline: "Discover places beyond the ordinary",
+    tagline: "Full-Stack Hotel Booking Platform",
     description:
-      "A full-stack travel discovery platform that helps users explore destinations, discover hidden gems, and plan memorable trips through a clean, responsive interface with curated recommendations.",
-    status: "In Development",
+      "Built a full-stack hotel booking platform where travelers can discover hotels, book rooms, and manage reservations while hotel owners manage properties and bookings through a dedicated dashboard.",
+
+    status: "Completed",
+
     stack: [
       "React",
-      "TypeScript",
       "Node.js",
       "Express",
       "MongoDB",
+      "JWT",
       "Tailwind CSS",
+      "Cloudinary",
     ],
-    architecture: [
-      "Responsive component-based frontend architecture",
-      "REST API for destination and user management",
-      "MongoDB-powered data storage",
-      "Reusable UI components with scalable project structure",
+
+    engineering: [
+      "JWT authentication with role-based access control",
+      "Room availability validation using date-overlap detection",
+      "Booking snapshot pattern for data consistency",
+      "Owner dashboard for property and booking management",
     ],
-    github: "https://github.com/yourusername/explorx",
-    live: "",
-    domain: "explorx.dev",
+
+    github: "https://github.com/JashGupta/ExplorX",
+    live: "https://explor-x.vercel.app",
+    domain: "https://explor-x.vercel.app",
   },
 
   {
     id: "astrocrm",
+
     title: "AstroCRM",
+
     screenshot: "/astroCRM.png",
-    tagline: "Managing consultations with clarity",
+
+    tagline: "Full-Stack CRM for Professional Astrologers",
+
     description:
-      "A CRM platform built for astrologers to manage clients, consultations, follow-ups, and business insights through an intuitive dashboard that simplifies daily operations.",
+      "Built a full-stack CRM for astrologers to manage client records, consultations, follow-up tasks, and business analytics using a modular Express backend and MongoDB.",
+
     status: "Completed",
+
     stack: [
       "React",
       "Node.js",
       "Express",
       "MongoDB",
+      "JWT",
       "Tailwind CSS",
+      "Recharts",
     ],
-    architecture: [
-      "Dashboard for client and consultation management",
-      "Follow-up workflow with status tracking",
-      "Modular Express backend with REST APIs",
-      "MongoDB collections optimized for CRM operations",
+
+    engineering: [
+      "JWT authentication with protected REST APIs",
+      "MongoDB aggregation pipelines for analytics dashboards",
+      "Service-layer Express architecture separating controllers and business logic",
+      "Soft delete strategy with indexed MongoDB queries",
     ],
-    github: "https://github.com/yourusername/humara-pandit-crm",
-    live: "",
-    domain: "humarapandit.app",
+
+    github: "https://github.com/JashGupta/AstroCRM",
+
+    live: "https://astro-crm-black.vercel.app",
+
+    domain: "https://astro-crm-black.vercel.app",
   },
 
-  {
-    id: "virtual-assistant",
-    title: "Virtual Assistant",
-    screenshot: "/explorX.png",
-    tagline: "An AI-powered desktop assistant",
-    description:
-      "An intelligent virtual assistant capable of understanding voice commands, answering questions, opening applications and websites, and automating everyday desktop tasks through natural language interaction.",
-    status: "Completed",
-    stack: [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "Web Speech API",
-    ],
-    architecture: [
-      "Speech recognition for voice input",
-      "Text-to-speech responses for natural interaction",
-      "Command-based automation for desktop tasks",
-      "Modular JavaScript architecture for extensibility",
-    ],
-    github: "https://github.com/yourusername/virtual-assistant",
-    live: "",
-    domain: "assistant.demo",
-  },
+  
 ];
 
 export const statusStyles: Record<
