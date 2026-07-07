@@ -23,7 +23,7 @@ export const featuredProjects: FeaturedProject[] = [
     description:
       "Built a full-stack hotel booking platform where travelers can discover hotels, book rooms, and manage reservations while hotel owners manage properties and bookings through a dedicated dashboard.",
 
-    status: "Completed",
+    status: "In Development",
 
     stack: [
       "React",
